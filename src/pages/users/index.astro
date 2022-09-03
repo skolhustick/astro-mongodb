@@ -1,0 +1,24 @@
+---
+import { getAllUsers } from "../../lib/users";
+import Layout from "../layouts/Layout.astro";
+const users = await getAllUsers();
+if (!users) {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not found",
+  });
+}
+---
+
+<Layout>
+  <h1>Users</h1>
+  <ul>
+    {
+      users.map((user) => (
+        <li>
+          {user.name}, {user.age}
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
